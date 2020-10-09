@@ -1,9 +1,9 @@
 package com.example.weatherloggerapp.data.providers
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
-import android.util.Log
 import com.example.weatherloggerapp.LocationDisabledException
 import com.example.weatherloggerapp.NetworkDisabledException
 import com.example.weatherloggerapp.domain.contract.CoordinatesProvider
@@ -11,7 +11,6 @@ import com.example.weatherloggerapp.domain.entity.Coordinates
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 
 class CoordinatesProviderImpl @Inject constructor(
@@ -22,6 +21,7 @@ class CoordinatesProviderImpl @Inject constructor(
     private var coordinates: Coordinates? = null
 
 
+    @SuppressLint("MissingPermission")
     override suspend fun getCoordinates(): Coordinates {
 
         locationClient = LocationServices.getFusedLocationProviderClient(context)

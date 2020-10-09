@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        goToMainScreen()
+
+        if (checkPermissions()) goToMainScreen()
+        else requestPermissions()
     }
 
     private fun havePermission(permission: String): Boolean =

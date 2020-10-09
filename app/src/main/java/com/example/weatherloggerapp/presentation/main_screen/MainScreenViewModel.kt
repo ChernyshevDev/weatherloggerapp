@@ -1,7 +1,6 @@
 package com.example.weatherloggerapp.presentation.main_screen
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.weatherloggerapp.LocationDisabledException
 import com.example.weatherloggerapp.NetworkDisabledException
@@ -9,8 +8,10 @@ import com.example.weatherloggerapp.domain.contract.WeatherProvider
 import com.example.weatherloggerapp.domain.entity.Weather
 import com.example.weatherloggerapp.presentation.ViewStateHolder
 import com.example.weatherloggerapp.presentation.ViewStateHolderImpl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -19,38 +20,51 @@ class MainScreenViewModel @Inject constructor(
 ) : ViewModel(),
     ViewStateHolder<MainScreenViewState> by ViewStateHolderImpl() {
 
-    init {
-        try{
-            fetchViewState()
-        } catch(exception: Exception){
-            when(exception){
-                is NetworkDisabledException -> Log.d("kek", "Network disabled Exception thrown")
-                is LocationDisabledException -> Log.d("kek", "Location disabled Exception thrown")
-            }
-        }
+    private lateinit var makeInternetDisabledToast : () -> Unit
+    private lateinit var makeLocationServicesDisabledToast : () -> Unit
+    private lateinit var makeUnknownIssueToast: () -> Unit
 
+    init {
+        updateWeather()
     }
 
-    private fun fetchViewState() {
-
-        var weather : Weather? = null
-            GlobalScope.launch {
-                try{
-                    weather = weatherProvider.getCurrentWeather()
-                    updateState {
-                        MainScreenViewState(
-                            weather = weather!!
-                        )
-                    }
-                } catch(exception: Exception){
-                    when(exception){
-                        is NetworkDisabledException -> Log.d("kek", "Network disabled Exception thrown")
-                        is LocationDisabledException -> Log.d("kek", "Location disabled Exception thrown")
-                        else -> Log.d("kek", "UNKNOWN Exception thrown")
+    private fun updateWeather() {
+        GlobalScope.launch {
+            try {
+                val weather = weatherProvider.getCurrentWeather()
+                updateState {
+                    MainScreenViewState(
+                        weather = weather
+                    )
+                }
+            } catch (exception: Exception) {
+                withContext(Dispatchers.Main) {
+                when (exception) {
+                        is NetworkDisabledException -> makeInternetDisabledToast()
+                        is LocationDisabledException -> makeLocationServicesDisabledToast()
+                        else -> {
+                            makeUnknownIssueToast()
+                            Log.d("kek", exception.stackTraceToString())
+                        }
                     }
                 }
+            }
         }
     }
+
+    fun setLocationDisabledToast(doing: () -> Unit){
+    makeLocationServicesDisabledToast = doing
+    }
+
+    fun setInternetDisabledToast(doing: () -> Unit){
+        makeInternetDisabledToast = doing
+    }
+
+    fun setUnknownIssueToast(doing: () -> Unit){
+        makeUnknownIssueToast = doing
+    }
+
+
 }
 
 data class MainScreenViewState(
