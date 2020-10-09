@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KUKU"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="40dp"
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/yourCurrentLocationText"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:text="your location"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="26sp"-->
+<!--        android:textStyle="italic"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintWidth_percent="0.65" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/yourCurrentLocationCity"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:text="City"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="26sp"-->
+<!--        android:textStyle="italic"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/yourCurrentLocationText"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintWidth_percent="0.35" />-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="#DC03A9F4"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/yourCurrentLocationCity"-->
+<!--        app:layout_constraintWidth_percent="0.7">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="weather now"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold|italic" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/currentWeatherTemperature"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="15°C"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="30sp" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/saveWeatherButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:text="save weather"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold|italic"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/linearLayout"-->
+<!--        app:layout_constraintWidth_percent="0.5" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/lastSaving"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="35dp"-->
+<!--        android:text="last saving"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="26sp"-->
+<!--        android:textStyle="italic|bold"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/saveWeatherButton"-->
+<!--        app:layout_constraintWidth_percent="0.7" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/lastCityConst"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="city"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="22sp"-->
+<!--        android:textStyle="italic"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lastSaving"-->
+<!--        app:layout_constraintWidth_percent="0.35" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/lastCity"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="city"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="22sp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/lastCityConst"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lastSaving"-->
+<!--        app:layout_constraintWidth_percent="0.35"-->
+<!--        android:textStyle="italic"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/lastTemperatureConst"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="temperature"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="22sp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lastCityConst"-->
+<!--        app:layout_constraintWidth_percent="0.35"-->
+<!--        android:textStyle="italic"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/lastTemperature"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="temp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="22sp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/lastTemperatureConst"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lastCityConst"-->
+<!--        app:layout_constraintWidth_percent="0.35"-->
+<!--        android:textStyle="italic"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/showAllSavingsButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:text="show savings"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold|italic"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lastTemperature"-->
+<!--        app:layout_constraintWidth_percent="0.7" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
