@@ -10,6 +10,7 @@
     <dimen name="unit_8">32sp</dimen>
     <dimen name="unit_9">36sp</dimen>
     <dimen name="unit_10">40sp</dimen>
+    <dimen name="unit_12">48sp</dimen>
     <dimen name="unit_14">56sp</dimen>
     <dimen name="unit_25">100sp</dimen>
     <dimen name="unit_30">120sp</dimen>

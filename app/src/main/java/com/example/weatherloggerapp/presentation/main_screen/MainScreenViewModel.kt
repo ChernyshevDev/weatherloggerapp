@@ -20,15 +20,15 @@ class MainScreenViewModel @Inject constructor(
 ) : ViewModel(),
     ViewStateHolder<MainScreenViewState> by ViewStateHolderImpl() {
 
-    private lateinit var makeInternetDisabledToast : () -> Unit
-    private lateinit var makeLocationServicesDisabledToast : () -> Unit
+    private lateinit var makeInternetDisabledToast: () -> Unit
+    private lateinit var makeLocationServicesDisabledToast: () -> Unit
     private lateinit var makeUnknownIssueToast: () -> Unit
 
     init {
         updateWeather()
     }
 
-    private fun updateWeather() {
+    fun updateWeather() {
         GlobalScope.launch {
             try {
                 val weather = weatherProvider.getCurrentWeather()
@@ -39,7 +39,7 @@ class MainScreenViewModel @Inject constructor(
                 }
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {
-                when (exception) {
+                    when (exception) {
                         is NetworkDisabledException -> makeInternetDisabledToast()
                         is LocationDisabledException -> makeLocationServicesDisabledToast()
                         else -> {
@@ -52,15 +52,15 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    fun setLocationDisabledToast(doing: () -> Unit){
-    makeLocationServicesDisabledToast = doing
+    fun setLocationDisabledToast(doing: () -> Unit) {
+        makeLocationServicesDisabledToast = doing
     }
 
-    fun setInternetDisabledToast(doing: () -> Unit){
+    fun setInternetDisabledToast(doing: () -> Unit) {
         makeInternetDisabledToast = doing
     }
 
-    fun setUnknownIssueToast(doing: () -> Unit){
+    fun setUnknownIssueToast(doing: () -> Unit) {
         makeUnknownIssueToast = doing
     }
 

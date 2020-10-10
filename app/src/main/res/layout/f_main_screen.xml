@@ -9,6 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/main_screen_refresh_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_refresh"
+            app:layout_constraintBottom_toBottomOf="@id/main_screen_current_location"
+            app:layout_constraintEnd_toEndOf="@id/weather_now"
+            app:layout_constraintTop_toTopOf="@id/main_screen_current_location" />
+
         <TextView
             android:id="@+id/main_screen_current_location"
             style="@style/common_text_20"

@@ -1,10 +1,13 @@
 package com.example.weatherloggerapp.data.retrofit
 
+import com.example.weatherloggerapp.R
+import com.example.weatherloggerapp.domain.entity.DateTime
 import com.example.weatherloggerapp.domain.entity.Weather
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
-data class WeatherResponse( // TODO try sealed class
+data class WeatherResponse(
     val base: String,
     val clouds: Clouds,
     val cod: Int,
@@ -60,14 +63,36 @@ data class WeatherResponse( // TODO try sealed class
 fun WeatherResponse.toWeather(): Weather {
     return Weather(
         city = this.sys.country,
-        dateTime = getCurrentTime(),
-        temperature = this.main.temp.toFloat(),
+        dateTime = getCurrentDateTime(),
+        temperature = this.main.temp.roundToInt(),
         longitude = this.coord.lon,
-        latitude = this.coord.lat
+        latitude = this.coord.lat,
+        description = this.weather[0].description,
+        iconId = getIconId(this.weather[0].description)
     )
 }
 
-private fun getCurrentTime(): String {
-    val sdf = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
-    return sdf.format(Date()).toString()
+private fun getIconId(weatherDescription: String): Int {
+    return when (weatherDescription) {
+        "clear sky" -> R.drawable.ic_sun
+        "few clouds" -> R.drawable.ic_clouds
+        "scattered clouds" -> R.drawable.ic_clouds
+        "broken clouds" -> R.drawable.ic_clouds
+        "shower rain" -> R.drawable.ic_rain
+        "rain" -> R.drawable.ic_rain
+        "thunderstorm" -> R.drawable.ic_thunderstorm
+        "snow" -> R.drawable.ic_snow
+        "mist" -> R.drawable.ic_fog
+        else -> R.drawable.ic_clouds
+    }
+}
+
+private fun getCurrentDateTime(): DateTime {
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+    val timeFormat = SimpleDateFormat("HH:mm")
+
+    return DateTime(
+        date = dateFormat.format(Date()).toString(),
+        time = timeFormat.format(Date()).toString()
+    )
 }

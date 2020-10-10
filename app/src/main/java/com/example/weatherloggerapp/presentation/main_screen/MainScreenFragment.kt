@@ -2,7 +2,6 @@ package com.example.weatherloggerapp.presentation.main_screen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.weatherloggerapp.R
+import com.example.weatherloggerapp.databinding.FMainScreenBinding
 import com.example.weatherloggerapp.presentation.onChangeState
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -21,6 +21,7 @@ class MainScreenFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: MainScreenViewModel
+    private lateinit var viewBinding: FMainScreenBinding
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -31,7 +32,10 @@ class MainScreenFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.f_main_screen, container, false)
+    ): View? {
+        viewBinding = FMainScreenBinding.inflate(inflater)
+        return viewBinding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel =
@@ -39,9 +43,10 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setErrorToasters()
+        bindButtons()
 
         onChangeState(viewModel) {
-            setCurrentWeather()
+            bindTextViews()
         }
     }
 
@@ -69,14 +74,26 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun setCurrentWeather() {
-        with(viewModel.viewState.value!!.weather) {
-            Log.d("kek", "---------- current weather ------------")
-            Log.d("kek", "time: $dateTime")
-            Log.d("kek", "temperature: $temperature")
-            Log.d("kek", "long: $longitude")
-            Log.d("kek", "lat: $latitude")
-            Log.d("kek", "city: $city")
+    private fun bindButtons() {
+        with(viewBinding) {
+            mainScreenRefreshButton.setOnClickListener {
+                viewModel.updateWeather()
+            }
+        }
+    }
+
+    private fun bindTextViews() {
+        with(viewBinding) {
+            with(viewModel.viewState.value!!.weather) {
+                mainScreenCurrentLocation.text = city
+                weatherNow.weatherNowCurrentTemperature.text =
+                    String.format(
+                        resources.getString(R.string.current_temperature), temperature
+                    )
+                weatherNow.weatherNowCurrentTime.text = dateTime.time
+                weatherNow.weatherNowCurrentWeatherIcon.setImageResource(iconId)
+                weatherNow.weatherNowWeatherDescription.text = description.capitalize()
+            }
         }
     }
 }
