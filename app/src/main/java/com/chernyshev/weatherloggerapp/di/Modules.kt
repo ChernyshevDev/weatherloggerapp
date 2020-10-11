@@ -13,6 +13,8 @@ import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
 import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
+import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenFragment
+import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -52,6 +54,9 @@ abstract class ActivityModule {
 abstract class FragmentModule {
     @ContributesAndroidInjector
     internal abstract fun contributeMainScreenFragment(): MainScreenFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributesSavingsScreenFragment(): SavingsScreenFragment
 }
 
 @Module
@@ -60,6 +65,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainScreenViewModel::class)
     internal abstract fun bindMainScreenViewModel(viewModel: MainScreenViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SavingsScreenViewModel::class)
+    internal abstract fun bindSavingsScreenViewModel(viewModel: SavingsScreenViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

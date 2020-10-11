@@ -22,5 +22,8 @@
     <string name="last_saving_time_placeholder">18:06</string>
     <string name="last_saving_weather_description_placeholder">Sunny, 7°C</string>
 
+    <!-- Savings screen -->
+    <string name="dummy_time">08:17:22</string>
+
 
 </resources>

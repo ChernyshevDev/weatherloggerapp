@@ -30,7 +30,7 @@ class DatabaseProviderImpl @Inject constructor() : DatabaseProvider {
         }
     }
 
-    override suspend fun saveCurrentWeather(weather: Weather) {
+    override fun saveCurrentWeather(weather: Weather) {
         val db = Firebase.firestore
 
         db.collection(currentUser!!.uid)

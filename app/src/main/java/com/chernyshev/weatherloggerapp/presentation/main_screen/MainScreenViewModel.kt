@@ -64,9 +64,7 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun saveCurrentWeather() {
-        GlobalScope.launch {
-            database.saveCurrentWeather(viewState.value!!.weather)
-        }
+        database.saveCurrentWeather(viewState.value!!.weather)
     }
 
 
