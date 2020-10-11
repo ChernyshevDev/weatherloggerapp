@@ -86,6 +86,7 @@ class MainScreenFragment : Fragment() {
         }
     }
 
+
     private fun bindTextViews() {
         with(viewBinding) {
             with(viewModel.viewState.value!!.weather) {

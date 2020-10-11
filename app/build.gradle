@@ -70,11 +70,9 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.29.1'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:19.3.2'
-    implementation 'com.google.firebase:firebase-database-ktx:19.2.1'
-    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
     // Navigation
     def nav_version = "2.3.0"
