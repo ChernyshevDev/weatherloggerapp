@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1096327850192",
+    "firebase_url": "https://weather-logger-cbcd6.firebaseio.com",
+    "project_id": "weather-logger-cbcd6",
+    "storage_bucket": "weather-logger-cbcd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096327850192:android:ea29fb99c42fa4dc0716d5",
+        "android_client_info": {
+          "package_name": "com.chernyshev.weatherloggerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096327850192-orhenu9phh1cki6501ota82593aqdhil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOKPJuewzmkm0IHf8YmIfPlMoSynd6i4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096327850192-orhenu9phh1cki6501ota82593aqdhil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

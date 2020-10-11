@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.example.weatherloggerapp.presentation.main_screen.MainScreenFragment"
+        android:name="com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment"
         tools:layout="@layout/f_main_screen" />
 </navigation>

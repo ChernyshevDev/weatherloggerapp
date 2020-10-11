@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.weatherloggerapp">
+    package="com.chernyshev.weatherloggerapp">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name=".WeatherLoggerApp"
+        android:name="com.chernyshev.weatherloggerapp.WeatherLoggerApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.chernyshev.weatherloggerapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
