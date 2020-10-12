@@ -1,6 +1,5 @@
 package com.chernyshev.weatherloggerapp.presentation.main_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.chernyshev.weatherloggerapp.LocationDisabledException
 import com.chernyshev.weatherloggerapp.NetworkDisabledException
@@ -43,19 +42,16 @@ class MainScreenViewModel @Inject constructor(
                     when (exception) {
                         is NetworkDisabledException -> makeInternetDisabledToast()
                         is LocationDisabledException -> makeLocationServicesDisabledToast()
-                        else -> {
-                            makeUnknownIssueToast()
-                            Log.d("kek", exception.stackTraceToString())
-                        }
+                        else -> makeUnknownIssueToast()
                     }
                 }
             }
         }
     }
 
-    private fun getLastSavedWeather(){
+    private fun getLastSavedWeather() {
         GlobalScope.launch {
-            try{
+            try {
                 val lastSaving = database.getLastSaving()
                 updateState {
                     MainScreenViewState(
@@ -63,10 +59,9 @@ class MainScreenViewModel @Inject constructor(
                         lastSaving = lastSaving
                     )
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
     }
 
@@ -86,11 +81,9 @@ class MainScreenViewModel @Inject constructor(
         database.saveCurrentWeather(viewState.value!!.weather!!)
         getLastSavedWeather()
     }
-
-
 }
 
 data class MainScreenViewState(
     val weather: Weather?,
-    val lastSaving : Weather?
+    val lastSaving: Weather?
 )

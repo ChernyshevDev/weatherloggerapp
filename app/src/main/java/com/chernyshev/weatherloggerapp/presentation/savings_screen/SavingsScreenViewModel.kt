@@ -2,8 +2,6 @@ package com.chernyshev.weatherloggerapp.presentation.savings_screen
 
 import androidx.lifecycle.ViewModel
 import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
-import com.chernyshev.weatherloggerapp.domain.entity.DateTime
-import com.chernyshev.weatherloggerapp.domain.entity.Weather
 import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
 import com.chernyshev.weatherloggerapp.domain.entity.toViewData
 import com.chernyshev.weatherloggerapp.presentation.ViewStateHolder
@@ -18,6 +16,10 @@ class SavingsScreenViewModel @Inject constructor(
     ViewStateHolder<SavingsScreenViewState> by ViewStateHolderImpl() {
 
     init {
+        updateSavingsList()
+    }
+
+    fun updateSavingsList() {
         GlobalScope.launch {
             val weatherList = database.getAllSavings()
             updateState {
@@ -29,7 +31,6 @@ class SavingsScreenViewModel @Inject constructor(
             }
         }
     }
-
 }
 
 data class SavingsScreenViewState(

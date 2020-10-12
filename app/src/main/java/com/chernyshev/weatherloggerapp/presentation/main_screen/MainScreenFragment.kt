@@ -16,7 +16,7 @@ import com.chernyshev.weatherloggerapp.domain.entity.toDate
 import com.chernyshev.weatherloggerapp.domain.entity.toTime
 import com.chernyshev.weatherloggerapp.presentation.onChangeState
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.v_last_saving.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainScreenFragment : Fragment() {
@@ -46,34 +46,81 @@ class MainScreenFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory)[MainScreenViewModel::class.java]
         super.onViewCreated(view, savedInstanceState)
 
+        showLoadingAnimations()
+
         onChangeState(viewModel) {
-            bindTextViews()
+            runBlocking {
+                if (loadingAnimationsIsNowShowing()) {
+                    /**
+                     * For better user experience lets pretend
+                     * that app is performing something
+                     */
+                    showLoadingAnimationsForAWhile()
+                }
+                bindTextViews()
+            }
         }
 
         setErrorToasters()
         bindButtons()
+    }
 
+    private fun loadingAnimationsIsNowShowing(): Boolean {
+        with(viewBinding) {
+            return weatherNow.loadingAnimation.it.visibility == View.INVISIBLE &&
+                    lastSaving.loadingAnimation.it.visibility == View.INVISIBLE
+        }
+    }
+
+    private suspend fun showLoadingAnimationsForAWhile() {
+        GlobalScope.launch {
+            with(viewBinding) {
+                withContext(Dispatchers.Main) {
+                    showLoadingAnimations()
+                }
+
+                delay(1500)
+
+                withContext(Dispatchers.Main) {
+                    hideLoadingAnimations()
+                }
+            }
+        }
+    }
+
+    private fun showLoadingAnimations() {
+        with(viewBinding) {
+            weatherNow.loadingAnimation.it.visibility = View.VISIBLE
+            lastSaving.loadingAnimation.it.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoadingAnimations() {
+        with(viewBinding) {
+            weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
+            lastSaving.loadingAnimation.it.visibility = View.INVISIBLE
+        }
     }
 
     private fun setErrorToasters() {
         viewModel.setInternetDisabledToast {
             Toast.makeText(
                 context,
-                "Cannot update weather: Internet disabled on device",
+                getString(R.string.internet_disabled),
                 Toast.LENGTH_LONG
             ).show()
         }
         viewModel.setLocationDisabledToast {
             Toast.makeText(
                 context,
-                "Cannot update weather: Location disabled on device",
+                getString(R.string.location_disabled),
                 Toast.LENGTH_LONG
             ).show()
         }
         viewModel.setUnknownIssueToast {
             Toast.makeText(
                 context,
-                "Cannot update weather: Unknown issue. Please try again later.",
+                getString(R.string.cant_update_weather_unknown_issue),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -93,32 +140,38 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun navigateToSavingsScreen(){
+    private fun navigateToSavingsScreen() {
         findNavController().navigate(R.id.action_mainScreen_to_savingsScreen)
     }
 
-
     private fun bindTextViews() {
         with(viewBinding) {
-            with(viewModel.viewState.value!!.weather!!) {
-                mainScreenCurrentLocation.text = city
+            viewModel.viewState.value?.weather?.let {
+                mainScreenCurrentLocation.text = it.city
                 weatherNow.weatherNowCurrentTemperature.text =
                     String.format(
-                        resources.getString(R.string.current_temperature), temperature
+                        getString(R.string.current_temperature), it.temperature
                     )
-                weatherNow.weatherNowCurrentTime.text = timeStamp.toTime()
-                weatherNow.weatherNowCurrentWeatherIcon.setImageResource(iconId)
-                weatherNow.weatherNowWeatherDescription.text = description.capitalize()
+                weatherNow.weatherNowCurrentTime.text = it.timeStamp.toTime()
+                weatherNow.weatherNowCurrentWeatherIcon.setImageResource(it.iconId)
+                weatherNow.weatherNowWeatherDescription.text = it.description.capitalize()
+
+                weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
             }
 
-
-            viewModel.viewState.value?.lastSaving?.let{
+            viewModel.viewState.value?.lastSaving?.let {
                 lastSaving.lastSavingCity.text = it.city
                 lastSaving.lastSavingDate.text = it.timeStamp.toDate()
                 lastSaving.lastSavingTime.text = it.timeStamp.toTime()
-                lastSaving.lastSavingWeatherDescription.text = it.description
-            }
-
+                lastSaving.lastSavingWeatherDescription.text =
+                    String.format(
+                        getString(
+                            R.string.last_saving_weather_description,
+                            it.city, it.temperature
+                        )
+                    )
+                lastSaving.loadingAnimation.it.visibility = View.INVISIBLE
             }
         }
     }
+}

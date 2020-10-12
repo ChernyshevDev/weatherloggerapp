@@ -1,6 +1,5 @@
 package com.chernyshev.weatherloggerapp.domain.entity
 
-import java.sql.Date
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
@@ -8,20 +7,14 @@ data class Weather(
     val temperature: Int,
     val city: String,
     val timeStamp: Long,
-    val longitude: Double,
-    val latitude: Double,
     val description: String,
-    val iconId: Int,
+    val iconId: Int = 0,
     val pressure: Int,
     val windSpeed: Double,
 )
 
-data class DateTime(
-    val date: String,
-    val time: String
-)
-
 data class WeatherViewData(
+    val timeStamp: Long,
     val temperature: String,
     val city: String,
     val date: String,
@@ -33,6 +26,7 @@ data class WeatherViewData(
 
 fun Weather.toViewData() : WeatherViewData{
     return WeatherViewData(
+        timeStamp = this.timeStamp,
         temperature = this.temperature.toString() + "°C",
         city = this.city,
         date = this.timeStamp.toDate(),

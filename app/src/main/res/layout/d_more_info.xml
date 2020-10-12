@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/more_info_weather_date"
@@ -44,13 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/unit_9"
         android:layout_marginBottom="@dimen/unit_9"
-        app:layout_constraintTop_toBottomOf="@id/more_info_weather_divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/v_information"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/more_info_weather_divider"
         tools:itemCount="6"
-        />
+        tools:listitem="@layout/v_information" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

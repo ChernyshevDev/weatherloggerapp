@@ -20,10 +20,8 @@ class CoordinatesProviderImpl @Inject constructor(
     private lateinit var locationClient: FusedLocationProviderClient
     private var coordinates: Coordinates? = null
 
-
     @SuppressLint("MissingPermission")
     override suspend fun getCoordinates(): Coordinates {
-
         locationClient = LocationServices.getFusedLocationProviderClient(context)
 
         if (!isNetworkEnabled()) {
@@ -42,7 +40,6 @@ class CoordinatesProviderImpl @Inject constructor(
         }
     }
 
-
     private fun isNetworkEnabled(): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -51,7 +48,7 @@ class CoordinatesProviderImpl @Inject constructor(
     }
 
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager =
+        val locationManager: LocationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER

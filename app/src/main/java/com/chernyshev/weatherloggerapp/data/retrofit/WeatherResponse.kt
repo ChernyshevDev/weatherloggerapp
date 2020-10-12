@@ -1,11 +1,7 @@
 package com.chernyshev.weatherloggerapp.data.retrofit
 
 import com.chernyshev.weatherloggerapp.R
-import com.chernyshev.weatherloggerapp.domain.entity.DateTime
 import com.chernyshev.weatherloggerapp.domain.entity.Weather
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.math.roundToInt
 
 data class WeatherResponse(
@@ -63,11 +59,9 @@ data class WeatherResponse(
 
 fun WeatherResponse.toWeather(): Weather {
     return Weather(
-        city = this.sys.country,
+        city = this.name,
         timeStamp = getCurrentTimestamp(),
         temperature = this.main.temp.roundToInt(),
-        longitude = this.coord.lon,
-        latitude = this.coord.lat,
         description = this.weather[0].description,
         iconId = getIconId(this.weather[0].description),
         pressure = this.main.pressure,

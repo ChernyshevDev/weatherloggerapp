@@ -8,19 +8,19 @@ import com.chernyshev.weatherloggerapp.domain.entity.Info
 import javax.inject.Inject
 
 class MoreInfoAdapter @Inject constructor() :
-RecyclerView.Adapter<MoreInfoAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<MoreInfoAdapter.ItemViewHolder>() {
 
     private lateinit var items: List<Info>
 
-    fun setItems(items: List<Info>){
+    fun setItems(items: List<Info>) {
         this.items = items
     }
 
     inner class ItemViewHolder(private val binding: VInformationBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bindViewData(item: Info){
-            with(binding){
+        fun bindViewData(item: Info) {
+            with(binding) {
                 vInformationTitle.text = item.description
                 vInformationContent.text = item.content
             }

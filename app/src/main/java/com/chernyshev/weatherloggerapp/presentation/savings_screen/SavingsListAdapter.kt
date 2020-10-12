@@ -4,27 +4,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chernyshev.weatherloggerapp.databinding.VSavingBinding
-import com.chernyshev.weatherloggerapp.domain.entity.Weather
 import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
-import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoAdapter
-import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import javax.inject.Inject
 
 class SavingsListAdapter @Inject constructor() :
     RecyclerView.Adapter<SavingsListAdapter.ItemViewHolder>() {
 
     private var weatherSavings: List<WeatherViewData> = listOf()
-    private lateinit var navigateToShowMoreInfo : (weather: WeatherViewData) -> Unit
+    private lateinit var navigateToShowMoreInfo: (weather: WeatherViewData) -> Unit
+    private lateinit var removeItem: (weather: WeatherViewData) -> Unit
 
     fun setItems(items: List<WeatherViewData>) {
         weatherSavings = items
         notifyDataSetChanged()
     }
 
-    fun setNavigateToShowMoreInfo(doing : (weather: WeatherViewData) -> Unit) {
+    fun setNavigateToShowMoreInfo(doing: (weather: WeatherViewData) -> Unit) {
         navigateToShowMoreInfo = doing
     }
 
+    fun setRemoveItem(doing: (weather: WeatherViewData) -> Unit) {
+        removeItem = doing
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
@@ -53,6 +54,11 @@ class SavingsListAdapter @Inject constructor() :
                 savedWeather.setOnClickListener {
                     showMoreInfo(weather)
                 }
+
+                savedWeather.setOnLongClickListener {
+                    removeItem(weather)
+                    true
+                }
             }
         }
 
@@ -60,5 +66,4 @@ class SavingsListAdapter @Inject constructor() :
             navigateToShowMoreInfo(weather)
         }
     }
-
 }

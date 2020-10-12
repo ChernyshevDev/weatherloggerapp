@@ -17,6 +17,10 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
+    <style name="common_text_18" parent="common_text_20">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="common_text_16" parent="common_text_20">
         <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingExtra">6sp</item>
@@ -25,10 +29,6 @@
     <style name="common_text_14" parent="common_text_20">
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">6sp</item>
-    </style>
-
-    <style name="common_text_18" parent="common_text_20">
-        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="common_text_12" parent="common_text_20">

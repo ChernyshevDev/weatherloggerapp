@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">WeatherLoggerApp</string>
 
+    <!-- Common strings -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="success">Success</string>
+    <string name="temperature">Temperature</string>
+    <string name="description">Description</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="city">City</string>
+
     <!-- Request permission screen -->
     <string name="weather_logger">WEATHER LOGGER</string>
     <string name="allow_location_and_gps">For the application to work, please allow location and the Internet usage</string>
@@ -12,7 +22,6 @@
     <string name="current_time_placeholder">10:07</string>
     <string name="current_temperature_description_placeholder">Rain</string>
     <string name="weather_now">Weather now</string>
-    <string name="temperature">Temperature</string>
     <string name="time">Time</string>
     <string name="save">SAVE</string>
     <string name="all_savings">ALL SAVINGS</string>
@@ -21,9 +30,18 @@
     <string name="last_saving_city_placeholder">London</string>
     <string name="last_saving_time_placeholder">18:06</string>
     <string name="last_saving_weather_description_placeholder">Sunny, 7°C</string>
+    <string name="last_saving_weather_description">%1$s, %2$d°C</string>
 
     <!-- Savings screen -->
     <string name="dummy_time">08:17:22</string>
     <string name="dummy_temperature">10°C</string>
+
+    <!-- Confirmation Dialog -->
+    <string name="delete_saving_question">Delete saving?</string>
+
+    <!-- Errors -->
+    <string name="internet_disabled">Cannot update weather: Internet disabled on device</string>
+    <string name="location_disabled">Cannot update weather: Location disabled on device</string>
+    <string name="cant_update_weather_unknown_issue">Cannot update weather: Unknown issue. Please try again later.</string>
 
 </resources>

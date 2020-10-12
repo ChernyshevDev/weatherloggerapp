@@ -14,7 +14,7 @@ class ViewStateHolderImpl<T> :
     ViewStateHolder<T> {
     private val _viewState = MutableLiveData<T>()
 
-    override fun updateState(stateCopy: (T?) -> T) { // TODO WHAT DOES IT MEAN
+    override fun updateState(stateCopy: (T?) -> T) {
         val oldState = _viewState.value
         _viewState.postValue(stateCopy(oldState))
     }

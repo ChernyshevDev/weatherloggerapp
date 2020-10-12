@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.DMoreInfoBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Info
 import dagger.android.support.AndroidSupportInjection
@@ -11,12 +12,12 @@ import javax.inject.Inject
 
 private lateinit var viewBinding: DMoreInfoBinding
 
-class MoreInfoDialog  : DialogFragment() {
+class MoreInfoDialog : DialogFragment() {
 
     @Inject
     lateinit var adapter: MoreInfoAdapter
 
-    companion object{
+    companion object {
         const val TEMPERATURE = "temperature"
         const val CITY = "city"
         const val DATE = "date"
@@ -47,9 +48,9 @@ class MoreInfoDialog  : DialogFragment() {
         viewBinding.moreInfoRecycler.adapter = adapter
 
         val bundle = this.arguments
-        bundle?.let{bundle ->
+        bundle?.let { bundle ->
 
-            with(viewBinding){
+            with(viewBinding) {
                 moreInfoWeatherDate.text = bundle.getString(DATE)
                 moreInfoWeatherTime.text = bundle.getString(TIME)
             }
@@ -68,13 +69,28 @@ class MoreInfoDialog  : DialogFragment() {
         )
     }
 
-    private fun getItemsFromBundle(bundle: Bundle) : List<Info>{
+    private fun getItemsFromBundle(bundle: Bundle): List<Info> {
         return listOf(
-            Info( description = "Temperature", content = bundle.getString(TEMPERATURE)!!),
-            Info( description = "Description", content = bundle.getString(DESCRIPTION)!!),
-            Info( description = "Wind Speed", content = bundle.getString(WIND_SPEED)!!),
-            Info( description = "Pressure", content = bundle.getString(PRESSURE)!!),
-            Info( description = "City", content = bundle.getString(CITY)!!)
+            Info(
+                description = getString(R.string.temperature),
+                content = bundle.getString(TEMPERATURE)!!
+            ),
+            Info(
+                description = getString(R.string.description),
+                content = bundle.getString(DESCRIPTION)!!
+            ),
+            Info(
+                description = getString(R.string.wind_speed),
+                content = bundle.getString(WIND_SPEED)!!
+            ),
+            Info(
+                description = getString(R.string.pressure),
+                content = bundle.getString(PRESSURE)!!
+            ),
+            Info(
+                description = getString(R.string.city),
+                content = bundle.getString(CITY)!!
+            )
         )
     }
 }
