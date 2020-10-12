@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/unit_2"
-            android:text="@string/current_temperature_placeholder"
+            android:text="@string/dummy_temperature"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weather_now_header" />
@@ -74,8 +74,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/unit_2"
             android:text="@string/current_temperature_description_placeholder"
-            app:layout_constraintEnd_toEndOf="@id/weather_now_current_weather_icon"
-            app:layout_constraintStart_toStartOf="@id/weather_now_current_weather_icon"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@id/temperature"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weather_now_current_weather_icon" />
 
         <TextView

@@ -3,6 +3,7 @@ package com.chernyshev.weatherloggerapp.data.retrofit
 import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.domain.entity.DateTime
 import com.chernyshev.weatherloggerapp.domain.entity.Weather
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -63,12 +64,14 @@ data class WeatherResponse(
 fun WeatherResponse.toWeather(): Weather {
     return Weather(
         city = this.sys.country,
-        dateTime = getCurrentDateTime(),
+        timeStamp = getCurrentTimestamp(),
         temperature = this.main.temp.roundToInt(),
         longitude = this.coord.lon,
         latitude = this.coord.lat,
         description = this.weather[0].description,
-        iconId = getIconId(this.weather[0].description)
+        iconId = getIconId(this.weather[0].description),
+        pressure = this.main.pressure,
+        windSpeed = this.wind.speed
     )
 }
 
@@ -87,12 +90,6 @@ private fun getIconId(weatherDescription: String): Int {
     }
 }
 
-private fun getCurrentDateTime(): DateTime {
-    val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-    val timeFormat = SimpleDateFormat("HH:mm")
-
-    return DateTime(
-        date = dateFormat.format(Date()).toString(),
-        time = timeFormat.format(Date()).toString()
-    )
+private fun getCurrentTimestamp(): Long {
+    return System.currentTimeMillis()
 }

@@ -25,6 +25,7 @@ class MainScreenViewModel @Inject constructor(
 
     init {
         updateWeather()
+        getLastSavedWeather()
     }
 
     fun updateWeather() {
@@ -33,7 +34,8 @@ class MainScreenViewModel @Inject constructor(
                 val weather = weatherProvider.getCurrentWeather()
                 updateState {
                     MainScreenViewState(
-                        weather = weather
+                        weather = weather,
+                        it?.lastSaving
                     )
                 }
             } catch (exception: Exception) {
@@ -51,6 +53,23 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
+    private fun getLastSavedWeather(){
+        GlobalScope.launch {
+            try{
+                val lastSaving = database.getLastSaving()
+                updateState {
+                    MainScreenViewState(
+                        weather = it?.weather,
+                        lastSaving = lastSaving
+                    )
+                }
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+
+        }
+    }
+
     fun setLocationDisabledToast(doing: () -> Unit) {
         makeLocationServicesDisabledToast = doing
     }
@@ -64,12 +83,14 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun saveCurrentWeather() {
-        database.saveCurrentWeather(viewState.value!!.weather)
+        database.saveCurrentWeather(viewState.value!!.weather!!)
+        getLastSavedWeather()
     }
 
 
 }
 
 data class MainScreenViewState(
-    val weather: Weather
+    val weather: Weather?,
+    val lastSaving : Weather?
 )

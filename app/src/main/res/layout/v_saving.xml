@@ -8,6 +8,7 @@
     android:layout_marginBottom="@dimen/unit_3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/saved_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

@@ -8,5 +8,21 @@
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment"
-        tools:layout="@layout/f_main_screen" />
+        tools:layout="@layout/f_main_screen">
+        <action
+            android:id="@+id/action_mainScreen_to_savingsScreen"
+            app:destination="@id/savingsScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savingsScreenFragment"
+        android:name="com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenFragment"
+        tools:layout="@layout/f_savings_screen">
+        <action
+            android:id="@+id/action_savingsScreen_to_moreInfoDialog"
+            app:destination="@id/moreInfoDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/moreInfoDialog"
+        android:name="com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog"
+        tools:layout="@layout/d_more_info" />
 </navigation>

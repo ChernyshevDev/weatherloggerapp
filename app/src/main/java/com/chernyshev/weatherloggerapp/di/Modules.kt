@@ -13,6 +13,7 @@ import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
 import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
+import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenFragment
 import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenViewModel
 import dagger.Binds
@@ -21,6 +22,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 @Module
@@ -36,6 +38,7 @@ internal class AppModule {
     ): CoordinatesProvider = coordinatesProviderImpl
 
     @Provides
+    @Singleton
     fun provideDatabaseProvider(
         databaseProviderImpl: DatabaseProviderImpl
     ) : DatabaseProvider = databaseProviderImpl
@@ -57,6 +60,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributesSavingsScreenFragment(): SavingsScreenFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeMoreInfoDialog(): MoreInfoDialog
 }
 
 @Module

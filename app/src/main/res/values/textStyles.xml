@@ -46,6 +46,7 @@
 
     <style name="common_blue_text_14" parent="common_blue_text_30">
         <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
     </style>
 
     <style name="common_blue_text_10" parent="common_blue_text_30">
