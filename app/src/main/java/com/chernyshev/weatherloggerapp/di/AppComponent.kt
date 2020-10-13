@@ -3,8 +3,6 @@ package com.chernyshev.weatherloggerapp.di
 import android.app.Application
 import com.chernyshev.weatherloggerapp.WeatherLoggerApp
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
-import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoAdapter
-import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenViewModel
 import dagger.BindsInstance
 import dagger.Component

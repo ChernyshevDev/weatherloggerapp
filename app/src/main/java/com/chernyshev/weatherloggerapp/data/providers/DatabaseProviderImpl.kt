@@ -28,7 +28,7 @@ class DatabaseProviderImpl @Inject constructor(
     private val context: Context
 ) : DatabaseProvider {
 
-    var auth: FirebaseAuth = Firebase.auth
+    private var auth: FirebaseAuth = Firebase.auth
     private var currentUser: FirebaseUser? = null
     private lateinit var uid: String
     private lateinit var database: FirebaseFirestore
