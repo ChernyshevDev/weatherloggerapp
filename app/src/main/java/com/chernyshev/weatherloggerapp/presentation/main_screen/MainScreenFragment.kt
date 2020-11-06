@@ -1,6 +1,7 @@
 package com.chernyshev.weatherloggerapp.presentation.main_screen
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.FMainScreenBinding
 import com.chernyshev.weatherloggerapp.domain.entity.toDate
 import com.chernyshev.weatherloggerapp.domain.entity.toTime
+import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
 import com.chernyshev.weatherloggerapp.presentation.onChangeState
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.*
@@ -47,6 +49,8 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         showLoadingAnimations()
+        setErrorToasters()
+        setupButtons()
 
         onChangeState(viewModel) {
             runBlocking {
@@ -60,9 +64,6 @@ class MainScreenFragment : Fragment() {
                 bindTextViews()
             }
         }
-
-        setErrorToasters()
-        bindButtons()
     }
 
     private fun loadingAnimationsIsNowShowing(): Boolean {
@@ -126,7 +127,7 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun bindButtons() {
+    private fun setupButtons() {
         with(viewBinding) {
             mainScreenRefreshButton.setOnClickListener {
                 viewModel.updateWeather()
@@ -137,7 +138,14 @@ class MainScreenFragment : Fragment() {
             mainScreenAllSavingsButton.setOnClickListener {
                 navigateToSavingsScreen()
             }
+            mainScreenLocationsButton.setOnClickListener {
+                navigateToMapScreen()
+            }
         }
+    }
+
+    private fun navigateToMapScreen() {
+        startActivity(Intent(requireContext(),MapsActivity::class.java))
     }
 
     private fun navigateToSavingsScreen() {

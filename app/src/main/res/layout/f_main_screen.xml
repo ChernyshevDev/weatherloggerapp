@@ -55,14 +55,28 @@
             android:id="@+id/main_screen_save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/unit_4"
             android:layout_marginTop="@dimen/unit_6"
             android:background="@drawable/button_with_ripple_effect"
             android:text="@string/save"
             app:cornerRadius="@dimen/unit_8"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/main_screen_locations_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weather_now"
-            app:layout_constraintWidth_percent="0.55" />
+            app:layout_constraintTop_toBottomOf="@id/weather_now" />
+
+        <Button
+            android:id="@+id/main_screen_locations_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/unit_8"
+            android:layout_marginTop="@dimen/unit_6"
+            android:layout_marginEnd="@dimen/unit_4"
+            android:background="@drawable/button_with_ripple_effect"
+            android:text="@string/locations"
+            app:cornerRadius="@dimen/unit_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/main_screen_save_button"
+            app:layout_constraintTop_toBottomOf="@id/weather_now" />
 
         <TextView
             android:id="@+id/last_saving_header"

@@ -5,9 +5,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chernyshev.weatherloggerapp.MainActivity
+import com.chernyshev.weatherloggerapp.data.providers.AddressProviderImpl
 import com.chernyshev.weatherloggerapp.data.providers.CoordinatesProviderImpl
 import com.chernyshev.weatherloggerapp.data.providers.DatabaseProviderImpl
 import com.chernyshev.weatherloggerapp.data.providers.WeatherProviderImpl
+import com.chernyshev.weatherloggerapp.domain.contract.AddressProvider
 import com.chernyshev.weatherloggerapp.domain.contract.CoordinatesProvider
 import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
 import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
@@ -36,6 +38,11 @@ internal class AppModule {
     fun provideCoordinatesProvider(
         coordinatesProviderImpl: CoordinatesProviderImpl
     ): CoordinatesProvider = coordinatesProviderImpl
+
+    @Provides
+    fun provideAddressProvider(
+        addressProviderImpl: AddressProviderImpl
+    ): AddressProvider = addressProviderImpl
 
     @Provides
     @Singleton
