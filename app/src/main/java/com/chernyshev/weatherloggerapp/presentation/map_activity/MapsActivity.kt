@@ -3,41 +3,41 @@ package com.chernyshev.weatherloggerapp.presentation.map_activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.chernyshev.weatherloggerapp.R
-import com.chernyshev.weatherloggerapp.data.providers.AddressProviderImpl
 import com.chernyshev.weatherloggerapp.databinding.ActivityMapsBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Coordinates
-import com.chernyshev.weatherloggerapp.domain.entity.Location
-import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
-import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoAdapter
-
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.chernyshev.weatherloggerapp.domain.entity.Info
+import com.chernyshev.weatherloggerapp.presentation.adapters.InfoListAdapter
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.android.AndroidInjection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     @Inject
+    lateinit var adapter: InfoListAdapter
+
+    @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MapsActivityViewModel
 
-    @Inject
-    lateinit var adapter : MoreInfoAdapter
-
     private lateinit var map: GoogleMap
     private lateinit var viewBinding: ActivityMapsBinding
-
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -48,23 +48,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-}
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         setupBottomSheet()
         setupOnMapClick()
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     private fun setupOnMapClick() {
         map.setOnMapClickListener {
-            showBottomSheet(it.toCoordinates())
+            removeCurrentSelectionMarker()
+            showLocationInfo(viewModel.toCoordinates(it))
+            setCurrentSelectionMarker(it)
         }
+    }
+
+    private fun setCurrentSelectionMarker(coordinates: LatLng) {
+        viewModel.currentSelectionMarker = map.addMarker(MarkerOptions().position(coordinates))
+    }
+
+    private fun removeCurrentSelectionMarker() {
+        viewModel.currentSelectionMarker?.remove()
     }
 
     private fun setupBottomSheet() {
@@ -75,34 +80,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         bottomSheetBehaviour.isDraggable = true
         bottomSheetBehaviour.isHideable = true
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+
+        bottomSheetBehaviour.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    removeCurrentSelectionMarker()
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
     }
 
-    private fun showBottomSheet(coordinates: Coordinates) {
-        val location = coordinates.toLocation()
-        with(viewBinding.bottomSheet){
-            cityName.text = location.city
-            countryName.text = location.country
+    private fun showLocationInfo(coordinates: Coordinates) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val location = viewModel.toLocation(coordinates)
+            with(viewBinding.bottomSheet) {
+                cityName.text = location.city
+                countryName.text = location.country
 
-            val items = viewModel.getWeatherDescriptionItems()
-            adapter.setItems(items)
-            weatherDescriptionRecycler.adapter = adapter
+                var items: List<Info>? = null
+                withContext(Dispatchers.IO) {
+                    items = viewModel.getWeatherDescriptionItems(coordinates)
+                }
+                adapter.setItems(items!!)
+                weatherDescriptionRecycler.adapter = adapter
 
-            saveLocationButton.setOnClickListener {
-                viewModel.saveLocation(location)
+                saveLocationButton.setOnClickListener {
+                    viewModel.saveLocation(location)
+                }
             }
+            expandBottomSheet()
         }
-        expandBottomSheet()
     }
 
     private fun expandBottomSheet() {
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun Coordinates.toLocation() : Location = AddressProviderImpl(applicationContext).getAddress(this)
-    private fun LatLng.toCoordinates() : Coordinates {
-        return Coordinates(
-            latitude = this.latitude,
-            longitude = this.longitude
-        )
     }
 }

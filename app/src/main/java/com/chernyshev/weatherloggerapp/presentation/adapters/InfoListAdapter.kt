@@ -1,4 +1,4 @@
-package com.chernyshev.weatherloggerapp.presentation.more_info_dialog
+package com.chernyshev.weatherloggerapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import com.chernyshev.weatherloggerapp.databinding.VInformationItemBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Info
 import javax.inject.Inject
 
-class MoreInfoAdapter @Inject constructor() :
-    RecyclerView.Adapter<MoreInfoAdapter.ItemViewHolder>() {
+class InfoListAdapter @Inject constructor() :
+    RecyclerView.Adapter<InfoListAdapter.ItemViewHolder>() {
 
     private lateinit var items: List<Info>
 

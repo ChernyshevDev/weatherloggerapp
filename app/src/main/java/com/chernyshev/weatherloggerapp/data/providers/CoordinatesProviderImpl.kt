@@ -21,7 +21,7 @@ class CoordinatesProviderImpl @Inject constructor(
     private var coordinates: Coordinates? = null
 
     @SuppressLint("MissingPermission")
-    override suspend fun getCoordinates(): Coordinates {
+    override suspend fun getCurrentCoordinates(): Coordinates {
         locationClient = LocationServices.getFusedLocationProviderClient(context)
 
         if (!isNetworkEnabled()) {

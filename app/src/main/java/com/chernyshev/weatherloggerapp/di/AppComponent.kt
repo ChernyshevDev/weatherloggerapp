@@ -2,8 +2,7 @@ package com.chernyshev.weatherloggerapp.di
 
 import android.app.Application
 import com.chernyshev.weatherloggerapp.WeatherLoggerApp
-import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
-import com.chernyshev.weatherloggerapp.presentation.savings_screen.SavingsScreenViewModel
+import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -28,6 +27,5 @@ interface AppComponent {
     }
 
     fun inject(target: WeatherLoggerApp)
-    fun inject(target: MainScreenViewModel)
-    fun inject(target: SavingsScreenViewModel)
+    fun inject(target: MapsActivity)
 }

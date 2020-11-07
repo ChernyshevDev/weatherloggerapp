@@ -20,8 +20,8 @@ class WeatherProviderImpl @Inject constructor(
 
     private lateinit var coordinates: Coordinates
 
-    override suspend fun getCurrentWeather(): Weather {
-        coordinates = coordinatesProvider.getCoordinates()
+    override suspend fun getCurrentWeather(coord: Coordinates?): Weather {
+        coordinates = coord ?: coordinatesProvider.getCurrentCoordinates()
         val weatherRequest = getWeatherRequestCall()
         val responseFromServer = weatherRequest.makeRequest()
 
