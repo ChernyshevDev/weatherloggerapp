@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.DMoreInfoBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Info
+import com.chernyshev.weatherloggerapp.presentation.adapters.InfoListAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ private lateinit var viewBinding: DMoreInfoBinding
 class MoreInfoDialog : DialogFragment() {
 
     @Inject
-    lateinit var adapter: MoreInfoAdapter
+    lateinit var adapter: InfoListAdapter
 
     companion object {
         const val TEMPERATURE = "temperature"

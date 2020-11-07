@@ -1,14 +1,14 @@
-package com.chernyshev.weatherloggerapp.presentation.more_info_dialog
+package com.chernyshev.weatherloggerapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.chernyshev.weatherloggerapp.databinding.VInformationBinding
+import com.chernyshev.weatherloggerapp.databinding.VInformationItemBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Info
 import javax.inject.Inject
 
-class MoreInfoAdapter @Inject constructor() :
-    RecyclerView.Adapter<MoreInfoAdapter.ItemViewHolder>() {
+class InfoListAdapter @Inject constructor() :
+    RecyclerView.Adapter<InfoListAdapter.ItemViewHolder>() {
 
     private lateinit var items: List<Info>
 
@@ -16,7 +16,7 @@ class MoreInfoAdapter @Inject constructor() :
         this.items = items
     }
 
-    inner class ItemViewHolder(private val binding: VInformationBinding) :
+    inner class ItemViewHolder(private val binding: VInformationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindViewData(item: Info) {
@@ -29,7 +29,7 @@ class MoreInfoAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            VInformationBinding.inflate(
+            VInformationItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

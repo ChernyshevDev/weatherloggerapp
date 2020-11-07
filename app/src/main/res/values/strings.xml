@@ -10,6 +10,7 @@
     <string name="wind_speed">Wind Speed</string>
     <string name="pressure">Pressure</string>
     <string name="city">City</string>
+    <string name="country">Country</string>
 
     <!-- Request permission screen -->
     <string name="weather_logger">WEATHER LOGGER</string>
@@ -24,6 +25,7 @@
     <string name="weather_now">Weather now</string>
     <string name="time">Time</string>
     <string name="save">SAVE</string>
+    <string name="locations">LOCATIONS</string>
     <string name="all_savings">ALL SAVINGS</string>
     <string name="last_saving">Last saving</string>
     <string name="last_saving_date_placeholder">02.11.2018</string>
@@ -31,6 +33,9 @@
     <string name="last_saving_time_placeholder">18:06</string>
     <string name="last_saving_weather_description_placeholder">Sunny, 7°C</string>
     <string name="last_saving_weather_description">%1$s, %2$d°C</string>
+
+    <!-- Map Screen -->
+    <string name="save_location">Save Location</string>
 
     <!-- Savings screen -->
     <string name="dummy_time">08:17:22</string>
@@ -43,5 +48,6 @@
     <string name="internet_disabled">Cannot update weather: Internet disabled on device</string>
     <string name="location_disabled">Cannot update weather: Location disabled on device</string>
     <string name="cant_update_weather_unknown_issue">Cannot update weather: Unknown issue. Please try again later.</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
