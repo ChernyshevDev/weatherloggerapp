@@ -1,68 +1,84 @@
 package com.chernyshev.weatherloggerapp.presentation.main_screen
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.chernyshev.weatherloggerapp.LocationDisabledException
 import com.chernyshev.weatherloggerapp.NetworkDisabledException
 import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
+import com.chernyshev.weatherloggerapp.domain.contract.RealmProvider
 import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
+import com.chernyshev.weatherloggerapp.domain.entity.Location
 import com.chernyshev.weatherloggerapp.domain.entity.Weather
-import com.chernyshev.weatherloggerapp.presentation.ViewStateHolder
-import com.chernyshev.weatherloggerapp.presentation.ViewStateHolderImpl
 import kotlinx.coroutines.*
 import java.lang.Exception
 import javax.inject.Inject
 
 class MainScreenViewModel @Inject constructor(
     private val weatherProvider: WeatherProvider,
-    private val database: DatabaseProvider
-) : ViewModel(),
-    ViewStateHolder<MainScreenViewState> by ViewStateHolderImpl() {
+    private val database: DatabaseProvider,
+    private val realmProvider: RealmProvider
+) : ViewModel() {
+
+    var otherCitiesWeathers: MutableLiveData<List<Pair<Location, Weather>>> = MutableLiveData()
+    var weatherInCurrentLocation: MutableLiveData<Weather> = MutableLiveData()
 
     private lateinit var makeInternetDisabledToast: () -> Unit
     private lateinit var makeLocationServicesDisabledToast: () -> Unit
     private lateinit var makeUnknownIssueToast: () -> Unit
 
     init {
-        updateWeather()
-        getLastSavedWeather()
+        GlobalScope.launch {
+            fetchViewData()
+        }
     }
 
-    fun updateWeather() {
-        GlobalScope.launch {
-            try {
-                val weather = weatherProvider.getCurrentWeather()
-                updateState {
-                    MainScreenViewState(
-                        weather = weather,
-                        it?.lastSaving
-                    )
-                }
-            } catch (exception: Exception) {
-                withContext(Dispatchers.Main) {
-                    when (exception) {
-                        is NetworkDisabledException -> makeInternetDisabledToast()
-                        is LocationDisabledException -> makeLocationServicesDisabledToast()
-                        else -> makeUnknownIssueToast()
-                    }
+    private suspend fun fetchViewData() {
+        try {
+            updateWeatherInCurrentLocation()
+            updateOtherCitiesWeathers()
+        } catch (exception: Exception) {
+            withContext(Dispatchers.Main) {
+                when (exception) {
+                    is NetworkDisabledException -> makeInternetDisabledToast()
+                    is LocationDisabledException -> makeLocationServicesDisabledToast()
+                    else -> makeUnknownIssueToast()
                 }
             }
         }
     }
 
-    private fun getLastSavedWeather() {
+    suspend fun updateWeatherInCurrentLocation() {
+        weatherInCurrentLocation.postValue(weatherProvider.getCurrentWeather())
+    }
+
+    fun saveCurrentWeather() {
+        database.saveCurrentWeather(weatherInCurrentLocation.value!!)
+    }
+
+    fun deleteSavedLocation(location: Location) {
         GlobalScope.launch {
-            try {
-                val lastSaving = database.getLastSaving()
-                updateState {
-                    MainScreenViewState(
-                        weather = it?.weather,
-                        lastSaving = lastSaving
-                    )
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            realmProvider.removeLocationFromSavings(location)
+            updateOtherCitiesWeathers()
         }
+    }
+
+    suspend fun updateOtherCitiesWeathers() {
+        val listOfWeathers = getSavedLocationsWeathers()
+        otherCitiesWeathers.postValue(
+            listOfWeathers
+        )
+    }
+
+    private suspend fun getSavedLocationsWeathers(): List<Pair<Location, Weather>> {
+        val listOfWeathers = mutableListOf<Pair<Location, Weather>>()
+
+        val listOfLocations = realmProvider.getAllSavedLocations()
+        for (location in listOfLocations) {
+            val weather = weatherProvider.getCurrentWeather(location.coordinates)
+            listOfWeathers.add(Pair(location, weather))
+        }
+
+        return listOfWeathers
     }
 
     fun setLocationDisabledToast(doing: () -> Unit) {
@@ -76,14 +92,4 @@ class MainScreenViewModel @Inject constructor(
     fun setUnknownIssueToast(doing: () -> Unit) {
         makeUnknownIssueToast = doing
     }
-
-    fun saveCurrentWeather() {
-        database.saveCurrentWeather(viewState.value!!.weather!!)
-        getLastSavedWeather()
-    }
 }
-
-data class MainScreenViewState(
-    val weather: Weather?,
-    val lastSaving: Weather?
-)

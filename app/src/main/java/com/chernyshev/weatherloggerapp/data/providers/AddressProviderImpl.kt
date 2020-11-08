@@ -2,7 +2,6 @@ package com.chernyshev.weatherloggerapp.data.providers
 
 import android.content.Context
 import android.location.Geocoder
-import android.util.Log
 import com.chernyshev.weatherloggerapp.domain.contract.AddressProvider
 import com.chernyshev.weatherloggerapp.domain.entity.Coordinates
 import com.chernyshev.weatherloggerapp.domain.entity.Location
@@ -18,13 +17,13 @@ class AddressProviderImpl @Inject constructor(
         var country: String? = null
         var city: String? = null
         addressList[0]?.let {
-            Log.d("kek", addressList[0]!!.toString())
             city = it.adminArea ?: it.subAdminArea ?: it.locality ?: it.featureName
             country = it.countryName
         }
         return Location(
             city = city ?: "Unknown city",
-            country = country ?: "Unknown country"
+            country = country ?: "Unknown country",
+            coordinates = coordinates
         )
     }
 }

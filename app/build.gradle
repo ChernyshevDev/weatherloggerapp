@@ -10,6 +10,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 // firebase
 apply plugin: 'com.google.gms.google-services'
 
+// Realm Database
+apply plugin: 'realm-android'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"

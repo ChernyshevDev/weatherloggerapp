@@ -27,7 +27,7 @@
     <string name="save">SAVE</string>
     <string name="locations">LOCATIONS</string>
     <string name="all_savings">ALL SAVINGS</string>
-    <string name="last_saving">Last saving</string>
+    <string name="other_places">Other places</string>
     <string name="last_saving_date_placeholder">02.11.2018</string>
     <string name="last_saving_city_placeholder">London</string>
     <string name="last_saving_time_placeholder">18:06</string>
@@ -36,6 +36,7 @@
 
     <!-- Map Screen -->
     <string name="save_location">Save Location</string>
+    <string name="remove_saving">Remove Saving</string>
 
     <!-- Savings screen -->
     <string name="dummy_time">08:17:22</string>

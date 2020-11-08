@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/main_screen_refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_refresh_with_ripple"
+        app:layout_constraintBottom_toBottomOf="@id/main_screen_current_location"
+        app:layout_constraintEnd_toEndOf="@id/weather_now"
+        app:layout_constraintTop_toTopOf="@id/main_screen_current_location" />
 
-        <ImageView
-            android:id="@+id/main_screen_refresh_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_refresh_with_ripple"
-            app:layout_constraintBottom_toBottomOf="@id/main_screen_current_location"
-            app:layout_constraintEnd_toEndOf="@id/weather_now"
-            app:layout_constraintTop_toTopOf="@id/main_screen_current_location" />
+    <TextView
+        android:id="@+id/main_screen_current_location"
+        style="@style/common_text_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/unit_25"
+        android:text="@string/your_city_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/main_screen_current_location"
-            style="@style/common_text_20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/unit_25"
-            android:text="@string/your_city_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/unit_2"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_location_mark"
+        app:layout_constraintBottom_toBottomOf="@id/main_screen_current_location"
+        app:layout_constraintEnd_toStartOf="@id/main_screen_current_location"
+        app:layout_constraintTop_toTopOf="@id/main_screen_current_location" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/unit_2"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_location_mark"
-            app:layout_constraintBottom_toBottomOf="@id/main_screen_current_location"
-            app:layout_constraintEnd_toStartOf="@id/main_screen_current_location"
-            app:layout_constraintTop_toTopOf="@id/main_screen_current_location" />
+    <include
+        android:id="@+id/weather_now"
+        layout="@layout/v_weather_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/unit_10"
+        android:layout_marginTop="@dimen/unit_6"
+        android:layout_marginEnd="@dimen/unit_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_screen_current_location" />
 
-        <include
-            android:id="@+id/weather_now"
-            layout="@layout/v_weather_now"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/unit_10"
-            android:layout_marginTop="@dimen/unit_6"
-            android:layout_marginEnd="@dimen/unit_10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_screen_current_location" />
+    <Button
+        android:id="@+id/main_screen_save_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/unit_4"
+        android:layout_marginTop="@dimen/unit_6"
+        android:background="@drawable/blue_button_with_ripple_effect"
+        android:text="@string/save"
+        app:cornerRadius="@dimen/unit_8"
+        app:layout_constraintEnd_toStartOf="@id/main_screen_locations_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weather_now" />
 
-        <Button
-            android:id="@+id/main_screen_save_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/unit_4"
-            android:layout_marginTop="@dimen/unit_6"
-            android:background="@drawable/button_with_ripple_effect"
-            android:text="@string/save"
-            app:cornerRadius="@dimen/unit_8"
-            app:layout_constraintEnd_toStartOf="@id/main_screen_locations_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/weather_now" />
+    <Button
+        android:id="@+id/main_screen_locations_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/unit_8"
+        android:layout_marginTop="@dimen/unit_6"
+        android:layout_marginEnd="@dimen/unit_4"
+        android:background="@drawable/blue_button_with_ripple_effect"
+        android:text="@string/locations"
+        app:cornerRadius="@dimen/unit_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_screen_save_button"
+        app:layout_constraintTop_toBottomOf="@id/weather_now" />
 
-        <Button
-            android:id="@+id/main_screen_locations_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/unit_8"
-            android:layout_marginTop="@dimen/unit_6"
-            android:layout_marginEnd="@dimen/unit_4"
-            android:background="@drawable/button_with_ripple_effect"
-            android:text="@string/locations"
-            app:cornerRadius="@dimen/unit_8"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_screen_save_button"
-            app:layout_constraintTop_toBottomOf="@id/weather_now" />
+    <TextView
+        android:id="@+id/other_places_header"
+        style="@style/common_text_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/unit_14"
+        android:text="@string/other_places"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_screen_save_button" />
 
-        <TextView
-            android:id="@+id/last_saving_header"
-            style="@style/common_text_20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/unit_14"
-            android:text="@string/last_saving"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_screen_save_button" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/other_cities_weather_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/unit_4"
+        android:layout_marginTop="@dimen/unit_4"
+        android:layout_marginEnd="@dimen/unit_4"
+        android:layout_marginBottom="@dimen/unit_4"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/main_screen_all_savings_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/other_places_header"
+        tools:listitem="@layout/v_weather_item" />
 
-        <include
-            android:id="@+id/last_saving"
-            layout="@layout/v_last_saving"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/unit_10"
-            android:layout_marginTop="@dimen/unit_5"
-            android:layout_marginEnd="@dimen/unit_10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/last_saving_header" />
+    <Button
+        android:id="@+id/main_screen_all_savings_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/unit_8"
+        android:layout_marginBottom="@dimen/unit_4"
+        android:background="@drawable/blue_button_with_ripple_effect"
+        android:text="@string/all_savings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.55" />
 
-        <Button
-            android:id="@+id/main_screen_all_savings_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/unit_8"
-            android:background="@drawable/button_with_ripple_effect"
-            android:text="@string/all_savings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/last_saving"
-            app:layout_constraintWidth_percent="0.55" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

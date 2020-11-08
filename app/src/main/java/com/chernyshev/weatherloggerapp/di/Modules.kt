@@ -5,14 +5,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.chernyshev.weatherloggerapp.MainActivity
-import com.chernyshev.weatherloggerapp.data.providers.AddressProviderImpl
-import com.chernyshev.weatherloggerapp.data.providers.CoordinatesProviderImpl
-import com.chernyshev.weatherloggerapp.data.providers.DatabaseProviderImpl
-import com.chernyshev.weatherloggerapp.data.providers.WeatherProviderImpl
-import com.chernyshev.weatherloggerapp.domain.contract.AddressProvider
-import com.chernyshev.weatherloggerapp.domain.contract.CoordinatesProvider
-import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
-import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
+import com.chernyshev.weatherloggerapp.data.providers.*
+import com.chernyshev.weatherloggerapp.domain.contract.*
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
 import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
@@ -45,6 +39,11 @@ internal class AppModule {
     fun provideAddressProvider(
         addressProviderImpl: AddressProviderImpl
     ): AddressProvider = addressProviderImpl
+
+    @Provides
+    fun provideRealmProvider(
+        realmProviderImpl: RealmProviderImpl
+    ): RealmProvider = realmProviderImpl
 
     @Provides
     @Singleton
@@ -88,7 +87,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SavingsScreenViewModel::class)
     internal abstract fun bindSavingsScreenViewModel(viewModel: SavingsScreenViewModel): ViewModel
-
 
     @Binds
     @IntoMap

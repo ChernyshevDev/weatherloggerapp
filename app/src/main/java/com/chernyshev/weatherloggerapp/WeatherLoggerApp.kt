@@ -5,6 +5,7 @@ import com.chernyshev.weatherloggerapp.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import io.realm.Realm
 import javax.inject.Inject
 
 class WeatherLoggerApp : Application(), HasAndroidInjector {
@@ -18,6 +19,8 @@ class WeatherLoggerApp : Application(), HasAndroidInjector {
             .application(this)
             .build()
             .inject(this)
+
+        Realm.init(applicationContext)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

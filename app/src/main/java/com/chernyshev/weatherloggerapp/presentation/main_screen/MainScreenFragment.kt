@@ -1,5 +1,6 @@
 package com.chernyshev.weatherloggerapp.presentation.main_screen
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,10 +14,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.FMainScreenBinding
-import com.chernyshev.weatherloggerapp.domain.entity.toDate
+import com.chernyshev.weatherloggerapp.domain.entity.Location
+import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
 import com.chernyshev.weatherloggerapp.domain.entity.toTime
+import com.chernyshev.weatherloggerapp.domain.entity.toViewData
+import com.chernyshev.weatherloggerapp.presentation.adapters.WeatherListAdapter
 import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
-import com.chernyshev.weatherloggerapp.presentation.onChangeState
+import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -25,9 +29,11 @@ class MainScreenFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var viewBinding: FMainScreenBinding
+
+    @Inject
+    lateinit var adapter: WeatherListAdapter
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -48,59 +54,150 @@ class MainScreenFragment : Fragment() {
             ViewModelProviders.of(this, viewModelFactory)[MainScreenViewModel::class.java]
         super.onViewCreated(view, savedInstanceState)
 
-        showLoadingAnimations()
+        showLoadingAnimation()
         setErrorToasters()
         setupButtons()
+        setupRecyclerView()
 
-        onChangeState(viewModel) {
+        viewModel.weatherInCurrentLocation.observe(viewLifecycleOwner) {
             runBlocking {
-                if (loadingAnimationsIsNowShowing()) {
+                if (loadingAnimationIsNotVisible()) {
                     /**
                      * For better user experience lets pretend
                      * that app is performing something
                      */
                     showLoadingAnimationsForAWhile()
                 }
-                bindTextViews()
+                bindWeatherNow()
             }
         }
     }
 
-    private fun loadingAnimationsIsNowShowing(): Boolean {
-        with(viewBinding) {
-            return weatherNow.loadingAnimation.it.visibility == View.INVISIBLE &&
-                    lastSaving.loadingAnimation.it.visibility == View.INVISIBLE
+    override fun onResume() {
+        super.onResume()
+
+        GlobalScope.launch {
+            viewModel.updateOtherCitiesWeathers()
         }
     }
 
     private suspend fun showLoadingAnimationsForAWhile() {
         GlobalScope.launch {
-            with(viewBinding) {
-                withContext(Dispatchers.Main) {
-                    showLoadingAnimations()
+            withContext(Dispatchers.Main) {
+                showLoadingAnimation()
+            }
+
+            delay(1500)
+
+            withContext(Dispatchers.Main) {
+                hideLoadingAnimation()
+            }
+        }
+    }
+
+    private fun showLoadingAnimation() {
+        with(viewBinding) {
+            weatherNow.loadingAnimation.it.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoadingAnimation() {
+        with(viewBinding) {
+            weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setupButtons() {
+        with(viewBinding) {
+            mainScreenRefreshButton.setOnClickListener {
+                GlobalScope.launch {
+                    viewModel.updateWeatherInCurrentLocation()
                 }
+            }
+            mainScreenSaveButton.setOnClickListener {
+                viewModel.saveCurrentWeather()
+            }
+            mainScreenAllSavingsButton.setOnClickListener {
+                navigateToSavingsScreen()
+            }
+            mainScreenLocationsButton.setOnClickListener {
+                navigateToMapScreen()
+            }
+        }
+    }
 
-                delay(1500)
+    private fun navigateToMapScreen() {
+        startActivity(Intent(requireContext(), MapsActivity::class.java))
+    }
 
-                withContext(Dispatchers.Main) {
-                    hideLoadingAnimations()
+    private fun navigateToSavingsScreen() {
+        findNavController().navigate(R.id.action_mainScreen_to_savingsScreen)
+    }
+
+    private fun bindWeatherNow() {
+        with(viewBinding) {
+            viewModel.weatherInCurrentLocation.value?.let { weather ->
+                mainScreenCurrentLocation.text = weather.city
+                weatherNow.location.text = weather.city
+                weatherNow.currentTemperature.text =
+                    String.format(
+                        getString(R.string.current_temperature), weather.temperature
+                    )
+                weatherNow.currentTime.text = weather.timeStamp.toTime()
+                weatherNow.weatherIcon.setImageResource(weather.iconId)
+                weatherNow.weatherDescription.text = weather.description.capitalize()
+
+                weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
+
+                root.setOnClickListener {
+                    openExpandedInfoDialog(weather.toViewData())
                 }
             }
         }
     }
 
-    private fun showLoadingAnimations() {
-        with(viewBinding) {
-            weatherNow.loadingAnimation.it.visibility = View.VISIBLE
-            lastSaving.loadingAnimation.it.visibility = View.VISIBLE
+    private fun setupRecyclerView() {
+        viewModel.otherCitiesWeathers.observe(viewLifecycleOwner) {
+            adapter.setItems(it)
         }
+
+        adapter.setOnItemClick {
+            openExpandedInfoDialog(it)
+        }
+
+        adapter.setOnLongItemClick {
+            showRemoveSavingDialog(it.first)
+        }
+
+        viewBinding.otherCitiesWeatherRecycler.adapter = adapter
     }
 
-    private fun hideLoadingAnimations() {
-        with(viewBinding) {
-            weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
-            lastSaving.loadingAnimation.it.visibility = View.INVISIBLE
-        }
+    private fun openExpandedInfoDialog(weather: WeatherViewData) {
+        findNavController().navigate(
+            R.id.action_mainScreenFragment_to_moreInfoDialog,
+            Bundle().apply {
+                putString(MoreInfoDialog.TEMPERATURE, weather.temperature)
+                putString(MoreInfoDialog.CITY, weather.city)
+                putString(MoreInfoDialog.DATE, weather.date)
+                putString(MoreInfoDialog.TIME, weather.time)
+                putString(MoreInfoDialog.DESCRIPTION, weather.description)
+                putString(MoreInfoDialog.PRESSURE, weather.pressure)
+                putString(MoreInfoDialog.WIND_SPEED, weather.windSpeed)
+            })
+    }
+
+    private fun showRemoveSavingDialog(location: Location) {
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage(getString(R.string.delete_saving_question))
+            .setCancelable(true)
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.deleteSavedLocation(location)
+            }
+            .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+        val alert = builder.create()
+        alert.show()
     }
 
     private fun setErrorToasters() {
@@ -127,59 +224,10 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun setupButtons() {
+    private fun loadingAnimationIsNotVisible(): Boolean {
         with(viewBinding) {
-            mainScreenRefreshButton.setOnClickListener {
-                viewModel.updateWeather()
-            }
-            mainScreenSaveButton.setOnClickListener {
-                viewModel.saveCurrentWeather()
-            }
-            mainScreenAllSavingsButton.setOnClickListener {
-                navigateToSavingsScreen()
-            }
-            mainScreenLocationsButton.setOnClickListener {
-                navigateToMapScreen()
-            }
+            return weatherNow.loadingAnimation.it.visibility == View.INVISIBLE
         }
     }
 
-    private fun navigateToMapScreen() {
-        startActivity(Intent(requireContext(),MapsActivity::class.java))
-    }
-
-    private fun navigateToSavingsScreen() {
-        findNavController().navigate(R.id.action_mainScreen_to_savingsScreen)
-    }
-
-    private fun bindTextViews() {
-        with(viewBinding) {
-            viewModel.viewState.value?.weather?.let {
-                mainScreenCurrentLocation.text = it.city
-                weatherNow.weatherNowCurrentTemperature.text =
-                    String.format(
-                        getString(R.string.current_temperature), it.temperature
-                    )
-                weatherNow.weatherNowCurrentTime.text = it.timeStamp.toTime()
-                weatherNow.weatherNowCurrentWeatherIcon.setImageResource(it.iconId)
-                weatherNow.weatherNowWeatherDescription.text = it.description.capitalize()
-
-                weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
-            }
-
-            viewModel.viewState.value?.lastSaving?.let {
-                lastSaving.lastSavingCity.text = it.city
-                lastSaving.lastSavingDate.text = it.timeStamp.toDate()
-                lastSaving.lastSavingTime.text = it.timeStamp.toTime()
-                lastSaving.lastSavingWeatherDescription.text =
-                    String.format(
-                        getString(
-                            R.string.last_saving_weather_description,
-                            it.city, it.temperature
-                        )
-                    )
-                lastSaving.loadingAnimation.it.visibility = View.INVISIBLE
-            }
-        }
-    }
 }
