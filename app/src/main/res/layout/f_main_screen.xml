@@ -20,7 +20,7 @@
         style="@style/common_text_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/unit_25"
+        android:layout_marginTop="@dimen/unit_10"
         android:text="@string/your_city_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,44 +54,58 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/unit_4"
         android:layout_marginTop="@dimen/unit_6"
+        android:layout_marginEnd="@dimen/unit_4"
         android:background="@drawable/blue_button_with_ripple_effect"
         android:text="@string/save"
         app:cornerRadius="@dimen/unit_8"
-        app:layout_constraintEnd_toStartOf="@id/main_screen_locations_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/weather_now" />
+
+    <Button
+        android:id="@+id/main_screen_open_map_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/unit_8"
+        android:layout_marginTop="@dimen/unit_6"
+        android:layout_marginEnd="@dimen/unit_2"
+        android:background="@drawable/blue_button_with_ripple_effect"
+        android:text="@string/map"
+        app:cornerRadius="@dimen/unit_8"
+        app:layout_constraintEnd_toStartOf="@id/main_screen_locations_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_screen_save_button" />
 
     <Button
         android:id="@+id/main_screen_locations_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/unit_8"
-        android:layout_marginTop="@dimen/unit_6"
         android:layout_marginEnd="@dimen/unit_4"
         android:background="@drawable/blue_button_with_ripple_effect"
         android:text="@string/locations"
         app:cornerRadius="@dimen/unit_8"
+        android:layout_marginStart="@dimen/unit_2"
+        app:layout_constraintBottom_toBottomOf="@id/main_screen_open_map_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/main_screen_save_button"
-        app:layout_constraintTop_toBottomOf="@id/weather_now" />
+        app:layout_constraintStart_toEndOf="@id/main_screen_open_map_button"
+        app:layout_constraintTop_toTopOf="@id/main_screen_open_map_button" />
 
     <TextView
         android:id="@+id/other_places_header"
         style="@style/common_text_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/unit_14"
+        android:layout_marginTop="@dimen/unit_7"
         android:text="@string/other_places"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_screen_save_button" />
+        app:layout_constraintTop_toBottomOf="@id/main_screen_open_map_button" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/other_cities_weather_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/unit_4"
-        android:layout_marginTop="@dimen/unit_4"
         android:layout_marginEnd="@dimen/unit_4"
         android:layout_marginBottom="@dimen/unit_4"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

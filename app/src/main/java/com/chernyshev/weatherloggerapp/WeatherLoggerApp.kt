@@ -2,6 +2,7 @@ package com.chernyshev.weatherloggerapp
 
 import android.app.Application
 import com.chernyshev.weatherloggerapp.di.DaggerAppComponent
+import com.google.android.libraries.places.api.Places
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -21,6 +22,9 @@ class WeatherLoggerApp : Application(), HasAndroidInjector {
             .inject(this)
 
         Realm.init(applicationContext)
+
+        Places.initialize(applicationContext,"AIzaSyAHepg3Ghr2haT_DPVaMxk4Equ0ijjE0MY")
+        Places.createClient(this)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

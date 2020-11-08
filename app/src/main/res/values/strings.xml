@@ -26,6 +26,7 @@
     <string name="time">Time</string>
     <string name="save">SAVE</string>
     <string name="locations">LOCATIONS</string>
+    <string name="map">MAP</string>
     <string name="all_savings">ALL SAVINGS</string>
     <string name="other_places">Other places</string>
     <string name="last_saving_date_placeholder">02.11.2018</string>

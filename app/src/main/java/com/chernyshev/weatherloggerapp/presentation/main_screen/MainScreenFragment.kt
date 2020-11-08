@@ -19,6 +19,7 @@ import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
 import com.chernyshev.weatherloggerapp.domain.entity.toTime
 import com.chernyshev.weatherloggerapp.domain.entity.toViewData
 import com.chernyshev.weatherloggerapp.presentation.adapters.WeatherListAdapter
+import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationActivity
 import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
 import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import dagger.android.support.AndroidSupportInjection
@@ -120,10 +121,17 @@ class MainScreenFragment : Fragment() {
             mainScreenAllSavingsButton.setOnClickListener {
                 navigateToSavingsScreen()
             }
-            mainScreenLocationsButton.setOnClickListener {
+            mainScreenOpenMapButton.setOnClickListener {
                 navigateToMapScreen()
             }
+            mainScreenLocationsButton.setOnClickListener {
+                navigateToFindLocationScreen()
+            }
         }
+    }
+
+    private fun navigateToFindLocationScreen(){
+        startActivity(Intent(requireContext(),SelectLocationActivity::class.java))
     }
 
     private fun navigateToMapScreen() {

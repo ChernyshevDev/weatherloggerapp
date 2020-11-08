@@ -44,7 +44,7 @@ class MapsActivityViewModel @Inject constructor(
     suspend fun getWeatherDescriptionItems(coordinates: Coordinates): List<Info> {
         var weather: Weather?
         withContext((Dispatchers.IO)) {
-            weather = weatherProvider.getCurrentWeather(coordinates)
+            weather = weatherProvider.getWeatherIn(coordinates)
         }
         return weather!!.toViewData().toInfoList()
     }

@@ -48,7 +48,7 @@ class MainScreenViewModel @Inject constructor(
     }
 
     suspend fun updateWeatherInCurrentLocation() {
-        weatherInCurrentLocation.postValue(weatherProvider.getCurrentWeather())
+        weatherInCurrentLocation.postValue(weatherProvider.getLocalWeather())
     }
 
     fun saveCurrentWeather() {
@@ -74,7 +74,7 @@ class MainScreenViewModel @Inject constructor(
 
         val listOfLocations = realmProvider.getAllSavedLocations()
         for (location in listOfLocations) {
-            val weather = weatherProvider.getCurrentWeather(location.coordinates)
+            val weather = weatherProvider.getWeatherIn(location.coordinates)
             listOfWeathers.add(Pair(location, weather))
         }
 
