@@ -130,8 +130,8 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun navigateToFindLocationScreen(){
-        startActivity(Intent(requireContext(),SelectLocationActivity::class.java))
+    private fun navigateToFindLocationScreen() {
+        startActivity(Intent(requireContext(), SelectLocationActivity::class.java))
     }
 
     private fun navigateToMapScreen() {
@@ -158,7 +158,7 @@ class MainScreenFragment : Fragment() {
                 weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
 
                 root.setOnClickListener {
-                    openExpandedInfoDialog(weather.toViewData())
+                    openExpandedInfoDialog(weather.toViewData(requireContext()))
                 }
             }
         }

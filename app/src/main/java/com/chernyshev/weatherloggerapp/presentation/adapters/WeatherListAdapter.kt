@@ -64,7 +64,7 @@ class WeatherListAdapter @Inject constructor(
                 weatherDescription.text = weather.second.description.capitalize()
 
                 root.setOnClickListener {
-                    onItemClick(weather.second.toViewData())
+                    onItemClick(weather.second.toViewData(context))
                 }
 
                 root.setOnLongClickListener {

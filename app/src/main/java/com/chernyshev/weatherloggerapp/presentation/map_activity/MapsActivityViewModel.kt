@@ -46,7 +46,7 @@ class MapsActivityViewModel @Inject constructor(
         withContext((Dispatchers.IO)) {
             weather = weatherProvider.getWeatherIn(coordinates)
         }
-        return weather!!.toViewData().toInfoList()
+        return weather!!.toViewData(context).toInfoList()
     }
 
     private fun fetchSavedLocations() {

@@ -1,5 +1,7 @@
 package com.chernyshev.weatherloggerapp.domain.entity
 
+import android.content.Context
+import com.chernyshev.weatherloggerapp.R
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
@@ -7,7 +9,7 @@ data class Weather(
     val temperature: Int,
     val city: String,
     val timeStamp: Long,
-    val description: String,
+    var description: String,
     val iconId: Int = 0,
     val pressure: Int,
     val windSpeed: Double,
@@ -25,7 +27,7 @@ data class WeatherViewData(
     val windSpeed: String
 )
 
-fun Weather.toViewData(): WeatherViewData {
+fun Weather.toViewData(context: Context): WeatherViewData {
     return WeatherViewData(
         timeStamp = this.timeStamp,
         temperature = this.temperature.toString() + "°C",
@@ -33,8 +35,14 @@ fun Weather.toViewData(): WeatherViewData {
         date = this.timeStamp.toDate(),
         time = this.timeStamp.toTime(),
         description = this.description,
-        pressure = this.pressure.toString() + " hPa",
-        windSpeed = this.windSpeed.toString() + " m/sec"
+        pressure = String.format(
+            context.getString(R.string.hpa),
+            this.pressure
+        ),
+        windSpeed = String.format(
+            context.getString(R.string.m_per_sec),
+            this.windSpeed.toInt()
+        )
     )
 }
 

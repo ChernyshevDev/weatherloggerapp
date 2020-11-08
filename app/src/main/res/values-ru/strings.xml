@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Погода</string>
+
+    <!-- Common strings -->
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="success">Успех!</string>
+    <string name="temperature">Температура</string>
+    <string name="description">Описание</string>
+    <string name="wind_speed">Ветер</string>
+    <string name="pressure">Давление</string>
+    <string name="city">Город</string>
+    <string name="saved">Сохранено!</string>
+    <string name="country">Страна</string>
+    <string name="title_activity_maps">Карта</string>
+
+    <!-- Weather Descriptions -->
+    <string name="clear_sky">ясно</string>
+    <string name="few_clouds">пара облачков</string>
+    <string name="scattered_clouds">облачно</string>
+    <string name="broken_clouds">сильно облачно</string>
+    <string name="shower_rain">сильный дождь</string>
+    <string name="rain">дождь</string>
+    <string name="thunderstorm">гром</string>
+    <string name="snow">снег</string>
+    <string name="mist">туман</string>
+
+    <string name="hpa">%1$d гПа</string>
+    <string name="m_per_sec">%1$d м/сек</string>
+
+    <!-- Request permission screen -->
+    <string name="weather_logger">СМОТРИТЕЛЬ ПОГОДЫ</string>
+    <string name="allow_location_and_gps">Что бы приложение работало, вам нужно разрешить приложению использование интернета и GPS.</string>
+
+    <!-- Main Screen -->
+    <string name="your_city_placeholder">Ваш город</string>
+
+    <string name="current_temperature">%1$d°C</string>
+    <string name="current_time_placeholder">10:07</string>
+    <string name="current_temperature_description_placeholder">Дождь</string>
+    <string name="weather_now">Погода</string>
+    <string name="time">Время</string>
+    <string name="save">СОХРАНИТЬ</string>
+    <string name="locations">МЕСТА</string>
+    <string name="map">КАРТА</string>
+    <string name="all_savings">СОХРАНЕНИЯ</string>
+    <string name="other_places">Другие Места</string>
+    <string name="last_saving_date_placeholder">02.11.2018</string>
+    <string name="last_saving_city_placeholder">Лондон</string>
+    <string name="last_saving_time_placeholder">18:06</string>
+    <string name="last_saving_weather_description_placeholder">Светло, 7°C</string>
+    <string name="last_saving_weather_description">%1$s, %2$d°C</string>
+
+    <!-- Map Screen -->
+    <string name="save_location">Сохранить Место</string>
+    <string name="remove_saving">Удалить Место</string>
+
+    <!-- Select locations list -->
+    <string name="select_city">Начните вводить название города</string>
+    <string name="confirm_saving">Добавить %1$s в сохраненные места?</string>
+
+    <!-- Savings screen -->
+    <string name="dummy_time">08:17:22</string>
+    <string name="dummy_temperature">10°C</string>
+
+    <!-- Confirmation Dialog -->
+    <string name="delete_saving_question">Удалить сохранение?</string>
+
+    <!-- Errors -->
+    <string name="internet_disabled">Невозможно обновить погоду: Интернет отключен!</string>
+    <string name="location_disabled">Невозможно обновить погоду: Службы локации отключены на телефоне!</string>
+    <string name="cant_update_weather_unknown_issue">Не получилось обновить погоду: Попробуйте еще раз позже.</string>
+
+</resources>

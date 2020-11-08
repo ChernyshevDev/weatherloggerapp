@@ -1,5 +1,6 @@
 package com.chernyshev.weatherloggerapp.presentation.savings_screen
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.chernyshev.weatherloggerapp.domain.contract.DatabaseProvider
 import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SavingsScreenViewModel @Inject constructor(
-    private val database: DatabaseProvider
+    private val database: DatabaseProvider,
+    private val context: Context
 ) : ViewModel(),
     ViewStateHolder<SavingsScreenViewState> by ViewStateHolderImpl() {
 
@@ -26,7 +28,7 @@ class SavingsScreenViewModel @Inject constructor(
                 SavingsScreenViewState(
                     weathersList = weatherList
                         .sortedByDescending { it.timeStamp }
-                        .map { it.toViewData() }
+                        .map { it.toViewData(context) }
                 )
             }
         }
