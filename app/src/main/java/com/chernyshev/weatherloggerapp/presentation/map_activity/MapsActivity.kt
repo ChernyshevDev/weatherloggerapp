@@ -150,6 +150,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 removeLocationButton.setOnClickListener {
                     removeMarkerAt(location.coordinates)
                     viewModel.removeLocationSaving(location)
+                    hideBottomSheet()
                 }
             } else {
                 saveLocationButton.visibility = View.VISIBLE
@@ -158,6 +159,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 saveLocationButton.setOnClickListener {
                     viewModel.saveLocation(location)
                     updateSavedLocationsMarkers()
+                    hideBottomSheet()
                 }
             }
         }
@@ -179,6 +181,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun expandBottomSheet() {
         bottomSheetBehaviour.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun hideBottomSheet() {
+        bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     private fun removeMarkerAt(coordinates: Coordinates) {

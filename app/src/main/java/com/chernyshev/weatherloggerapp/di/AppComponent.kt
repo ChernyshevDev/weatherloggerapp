@@ -2,6 +2,7 @@ package com.chernyshev.weatherloggerapp.di
 
 import android.app.Application
 import com.chernyshev.weatherloggerapp.WeatherLoggerApp
+import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationActivity
 import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -28,4 +29,6 @@ interface AppComponent {
 
     fun inject(target: WeatherLoggerApp)
     fun inject(target: MapsActivity)
+    fun inject(target: SelectLocationActivity)
+
 }

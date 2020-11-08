@@ -1,3 +1,4 @@
 <resources>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAHepg3Ghr2haT_DPVaMxk4Equ0ijjE0MY</string>
+    <string name="place_autocomplete_api_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAInvxebz5IGxHtDAZuqYtWe1yhgCKesV4</string>
 </resources>

@@ -10,6 +10,7 @@
     <string name="wind_speed">Wind Speed</string>
     <string name="pressure">Pressure</string>
     <string name="city">City</string>
+    <string name="saved">Saved!</string>
     <string name="country">Country</string>
 
     <!-- Request permission screen -->
@@ -38,6 +39,10 @@
     <!-- Map Screen -->
     <string name="save_location">Save Location</string>
     <string name="remove_saving">Remove Saving</string>
+
+    <!-- Select locations list -->
+    <string name="select_city">Type to find city you want to save</string>
+    <string name="confirm_saving">Add %1$s to saved locations?</string>
 
     <!-- Savings screen -->
     <string name="dummy_time">08:17:22</string>

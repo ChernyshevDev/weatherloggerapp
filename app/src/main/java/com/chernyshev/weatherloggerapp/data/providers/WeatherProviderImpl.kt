@@ -39,13 +39,16 @@ class WeatherProviderImpl @Inject constructor(
         return responseFromServer!!.toWeather()
     }
 
-    private fun getWeatherRequestCall(coordinates: Coordinates? = null, city: String? = null): Call<WeatherResponse> {
+    private fun getWeatherRequestCall(
+        coordinates: Coordinates? = null,
+        city: String? = null
+    ): Call<WeatherResponse> {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(openWeatherMapBaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val weatherService: WeatherService = retrofit.create(WeatherService::class.java)
-        return if(coordinates != null){
+        return if (coordinates != null) {
             weatherService.getWeather(lat = coordinates.latitude, lon = coordinates.longitude)
         } else weatherService.getWeather(city = city!!)
     }
@@ -53,5 +56,4 @@ class WeatherProviderImpl @Inject constructor(
     private fun Call<WeatherResponse>.makeRequest() =
         this.execute()
             .body()
-
 }

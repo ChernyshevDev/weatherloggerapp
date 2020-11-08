@@ -3,7 +3,7 @@ package com.chernyshev.weatherloggerapp.presentation.map_activity
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.chernyshev.weatherloggerapp.R
-import com.chernyshev.weatherloggerapp.domain.contract.AddressProvider
+import com.chernyshev.weatherloggerapp.domain.contract.LocationProvider
 import com.chernyshev.weatherloggerapp.domain.contract.RealmProvider
 import com.chernyshev.weatherloggerapp.domain.contract.WeatherProvider
 import com.chernyshev.weatherloggerapp.domain.entity.*
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class MapsActivityViewModel @Inject constructor(
     private val weatherProvider: WeatherProvider,
-    private val addressProvider: AddressProvider,
+    private val locationProvider: LocationProvider,
     private val realmProvider: RealmProvider,
     private val context: Context
 ) : ViewModel() {
@@ -74,7 +74,7 @@ class MapsActivityViewModel @Inject constructor(
         )
 
     fun toLocation(coordinates: Coordinates): Location =
-        addressProvider.getAddress(coordinates)
+        locationProvider.getLocation(coordinates)
 
     fun toCoordinates(latlng: LatLng): Coordinates {
         return Coordinates(

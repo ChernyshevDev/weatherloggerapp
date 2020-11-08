@@ -23,7 +23,7 @@ class WeatherLoggerApp : Application(), HasAndroidInjector {
 
         Realm.init(applicationContext)
 
-        Places.initialize(applicationContext,"AIzaSyAHepg3Ghr2haT_DPVaMxk4Equ0ijjE0MY")
+        Places.initialize(applicationContext,getString(R.string.place_autocomplete_api_key))
         Places.createClient(this)
     }
 

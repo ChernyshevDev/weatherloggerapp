@@ -11,6 +11,7 @@ data class Weather(
     val iconId: Int = 0,
     val pressure: Int,
     val windSpeed: Double,
+    val coordinates: Coordinates? = null
 )
 
 data class WeatherViewData(
@@ -24,7 +25,7 @@ data class WeatherViewData(
     val windSpeed: String
 )
 
-fun Weather.toViewData() : WeatherViewData{
+fun Weather.toViewData(): WeatherViewData {
     return WeatherViewData(
         timeStamp = this.timeStamp,
         temperature = this.temperature.toString() + "°C",
@@ -37,14 +38,14 @@ fun Weather.toViewData() : WeatherViewData{
     )
 }
 
-fun Long.toTime() : String{
+fun Long.toTime(): String {
     val timeStamp = Timestamp(this)
     val timeFormat = SimpleDateFormat("HH:mm")
 
     return timeFormat.format(timeStamp)
 }
 
-fun Long.toDate() : String{
+fun Long.toDate(): String {
     val timeStamp = Timestamp(this)
     val dateFormat = SimpleDateFormat("dd.MM.yyyy")
 

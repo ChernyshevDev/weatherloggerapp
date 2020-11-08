@@ -1,6 +1,7 @@
 package com.chernyshev.weatherloggerapp.data.retrofit
 
 import com.chernyshev.weatherloggerapp.R
+import com.chernyshev.weatherloggerapp.domain.entity.Coordinates
 import com.chernyshev.weatherloggerapp.domain.entity.Weather
 import kotlin.math.roundToInt
 
@@ -65,7 +66,11 @@ fun WeatherResponse.toWeather(): Weather {
         description = this.weather[0].description,
         iconId = getIconId(this.weather[0].description),
         pressure = this.main.pressure,
-        windSpeed = this.wind.speed
+        windSpeed = this.wind.speed,
+        coordinates = Coordinates(
+            latitude = this.coord.lat,
+            longitude = this.coord.lon
+        )
     )
 }
 

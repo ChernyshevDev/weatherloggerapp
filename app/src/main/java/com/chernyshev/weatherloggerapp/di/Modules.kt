@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.chernyshev.weatherloggerapp.MainActivity
 import com.chernyshev.weatherloggerapp.data.providers.*
 import com.chernyshev.weatherloggerapp.domain.contract.*
+import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationActivity
+import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationViewModel
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenFragment
 import com.chernyshev.weatherloggerapp.presentation.main_screen.MainScreenViewModel
 import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
@@ -36,9 +38,9 @@ internal class AppModule {
     ): CoordinatesProvider = coordinatesProviderImpl
 
     @Provides
-    fun provideAddressProvider(
-        addressProviderImpl: AddressProviderImpl
-    ): AddressProvider = addressProviderImpl
+    fun provideLocationProvider(
+        locationProviderImpl: LocationProviderImpl
+    ): LocationProvider = locationProviderImpl
 
     @Provides
     fun provideRealmProvider(
@@ -62,6 +64,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributesMapsActivity(): MapsActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributesSelectLocationsActivity(): SelectLocationActivity
 }
 
 @Module
@@ -92,6 +97,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MapsActivityViewModel::class)
     internal abstract fun bindMapsActivityViewModel(viewModel: MapsActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SelectLocationViewModel::class)
+    internal abstract fun bindSelectLocationViewModel(viewModel: SelectLocationViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
