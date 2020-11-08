@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.chernyshev.weatherloggerapp.MainActivity
+import com.chernyshev.weatherloggerapp.SplashActivity
 import com.chernyshev.weatherloggerapp.data.providers.*
 import com.chernyshev.weatherloggerapp.domain.contract.*
 import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationActivity
@@ -60,7 +60,7 @@ abstract class ActivityModule {
     internal abstract fun appContext(app: Application): Context
 
     @ContributesAndroidInjector
-    internal abstract fun contributeMainActivity(): MainActivity
+    internal abstract fun contributeMainActivity(): SplashActivity
 
     @ContributesAndroidInjector
     internal abstract fun contributesMapsActivity(): MapsActivity

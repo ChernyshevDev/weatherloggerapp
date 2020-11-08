@@ -38,18 +38,12 @@
     <string name="current_temperature">%1$d°C</string>
     <string name="current_time_placeholder">10:07</string>
     <string name="current_temperature_description_placeholder">Дождь</string>
-    <string name="weather_now">Погода</string>
-    <string name="time">Время</string>
     <string name="save">СОХРАНИТЬ</string>
     <string name="locations">МЕСТА</string>
     <string name="map">КАРТА</string>
     <string name="all_savings">СОХРАНЕНИЯ</string>
     <string name="other_places">Другие Места</string>
     <string name="last_saving_date_placeholder">02.11.2018</string>
-    <string name="last_saving_city_placeholder">Лондон</string>
-    <string name="last_saving_time_placeholder">18:06</string>
-    <string name="last_saving_weather_description_placeholder">Светло, 7°C</string>
-    <string name="last_saving_weather_description">%1$s, %2$d°C</string>
 
     <!-- Map Screen -->
     <string name="save_location">Сохранить Место</string>

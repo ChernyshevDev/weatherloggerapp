@@ -16,7 +16,6 @@ import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.FMainScreenBinding
 import com.chernyshev.weatherloggerapp.domain.entity.Location
 import com.chernyshev.weatherloggerapp.domain.entity.WeatherViewData
-import com.chernyshev.weatherloggerapp.domain.entity.toTime
 import com.chernyshev.weatherloggerapp.domain.entity.toViewData
 import com.chernyshev.weatherloggerapp.presentation.adapters.WeatherListAdapter
 import com.chernyshev.weatherloggerapp.presentation.location_select_screen.SelectLocationActivity
@@ -24,6 +23,7 @@ import com.chernyshev.weatherloggerapp.presentation.map_activity.MapsActivity
 import com.chernyshev.weatherloggerapp.presentation.more_info_dialog.MoreInfoDialog
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.*
+import java.util.*
 import javax.inject.Inject
 
 class MainScreenFragment : Fragment() {
@@ -151,9 +151,12 @@ class MainScreenFragment : Fragment() {
                     String.format(
                         getString(R.string.current_temperature), weather.temperature
                     )
-                weatherNow.currentTime.text = weather.timeStamp.toTime()
+                weatherNow.currentPressure.text = String.format(
+                    requireContext().getString(R.string.hpa),
+                    weather.pressure
+                )
                 weatherNow.weatherIcon.setImageResource(weather.iconId)
-                weatherNow.weatherDescription.text = weather.description.capitalize()
+                weatherNow.weatherDescription.text = weather.description.capitalize(Locale.getDefault())
 
                 weatherNow.loadingAnimation.it.visibility = View.INVISIBLE
 

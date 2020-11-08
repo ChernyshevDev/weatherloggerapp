@@ -51,15 +51,13 @@ class WeatherProviderImpl @Inject constructor(
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val weatherService: WeatherService = retrofit.create(WeatherService::class.java)
-        val language = context.resources.configuration.locales[0].language
 
         return if (coordinates != null) {
             weatherService.getWeather(
                 lat = coordinates.latitude,
-                lon = coordinates.longitude,
-                lang = language
+                lon = coordinates.longitude
             )
-        } else weatherService.getWeather(city = city!!, lang = language)
+        } else weatherService.getWeather(city = city!!)
     }
 
     private fun Call<WeatherResponse>.makeRequest() =

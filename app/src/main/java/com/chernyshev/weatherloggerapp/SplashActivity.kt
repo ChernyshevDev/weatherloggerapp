@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 
 lateinit var permissions: Array<String>
 
-class MainActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.require_permissions_screen)

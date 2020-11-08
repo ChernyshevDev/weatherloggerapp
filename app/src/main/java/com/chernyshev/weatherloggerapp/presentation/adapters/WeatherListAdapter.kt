@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chernyshev.weatherloggerapp.R
 import com.chernyshev.weatherloggerapp.databinding.VWeatherItemBinding
 import com.chernyshev.weatherloggerapp.domain.entity.*
+import java.util.*
 import javax.inject.Inject
 
 class WeatherListAdapter @Inject constructor(
@@ -59,9 +60,12 @@ class WeatherListAdapter @Inject constructor(
                     String.format(
                         context.getString(R.string.current_temperature), weather.second.temperature
                     )
-                currentTime.text = weather.second.timeStamp.toTime()
+                currentPressure.text = String.format(
+                    context.getString(R.string.hpa),
+                    weather.second.pressure
+                )
                 weatherIcon.setImageResource(weather.second.iconId)
-                weatherDescription.text = weather.second.description.capitalize()
+                weatherDescription.text = weather.second.description.capitalize(Locale.getDefault())
 
                 root.setOnClickListener {
                     onItemClick(weather.second.toViewData(context))
